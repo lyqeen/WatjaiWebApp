@@ -6,17 +6,19 @@
 package Servlet;
 
 import Model.DataHealth;
+
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URLEncoder;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPatch;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
@@ -24,7 +26,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
  *
  * @author User
  */
-
 @WebServlet(name = "ServletSentAbnormal", urlPatterns = {"/ServletSentAbnormal"})
 public class ServletSentAbnormal extends HttpServlet {
 
@@ -39,14 +40,36 @@ public class ServletSentAbnormal extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String comment = request.getParameter("comment");
         String idmea = request.getParameter("id");
-        
+
         System.out.println(idmea);
-        System.out.println("cOMMENT : "+comment);
-        
-        DataHealth.Addcomment(idmea, comment);
-        
+        System.out.println("cOMMENT : " + comment);
+         HttpClient httpClient = HttpClientBuilder.create().build(); //Use this instead 
+        System.out.println("Print patch" + httpClient);
+        HttpPatch requestu = new HttpPatch("http://watjai.me:3000/watjaimeasure/" + idmea);
+        System.out.println("Print patch" + requestu);
+
+        try {
+            StringEntity params
+                    = new StringEntity(("{\"abnormalStatus\":\"true\","
+                            + "\"readStatus\":\"unread\","
+                            + "\"comment\":\""+comment+ "\"}"),
+                            "UTF-8");
+            System.out.println("param : " + params);
+            //params.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+
+            requestu.setEntity(params);
+            HttpResponse responseq = httpClient.execute(requestu);
+            System.out.println("Complete");
+            System.out.println("rsponce" + responseq);
+        } catch (Exception e) {
+            System.out.println("exception01" + e);
+        }
+          
+
         getServletContext().getRequestDispatcher("/ShowAllPatient").forward(request, response);
     }
 
@@ -90,3 +113,27 @@ public class ServletSentAbnormal extends HttpServlet {
     }// </editor-fold>
 
 }
+/*
+
+        HttpClient httpClient = HttpClientBuilder.create().build(); //Use this instead 
+        System.out.println("Print patch" + httpClient);
+        HttpPatch requestu = new HttpPatch("http://watjai.me:3000/watjaimeasure/" + idmea.replaceAll(" ", "%20"));
+        System.out.println("Print patch" + requestu);
+
+        try {
+            StringEntity params
+                    = new StringEntity(("{\"abnormalStatus\":\"true\","
+                            + "\"readStatus\":\"unread\","
+                            + "\"comment\":\"" + comment + "\"}"),
+                            "UTF-8");
+            System.out.println("param : " + params);
+            //params.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+
+            requestu.setEntity(params);
+            HttpResponse responseq = httpClient.execute(requestu);
+            System.out.println("Complete");
+            System.out.println("rsponce" + responseq);
+        } catch (Exception e) {
+            System.out.println("exception01" + e);
+        }
+*/

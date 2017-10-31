@@ -219,8 +219,9 @@ public class DataHealth {
     
      static public  void Addcomment(String idmea,String comment) throws IOException{
         HttpClient httpClient = HttpClientBuilder.create().build(); //Use this instead 
-        HttpPatch request = new HttpPatch("http://watjai.me:3000/watjaimeasure/"+idmea);
-        
+        System.out.println("Print patch"+httpClient);
+        HttpPost request = new HttpPost("http://watjai.me:3000/watjaimeasure/"+idmea);
+         System.out.println("Print patch"+request);
         
         
         StringEntity params

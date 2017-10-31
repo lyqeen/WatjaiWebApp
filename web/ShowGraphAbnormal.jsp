@@ -161,11 +161,11 @@
                     
                     <div class="panel panel-default di">
 
-                         <form action="ServletSentAbnormal" method="post">
+                         <form action="ServletSentAbnormal" method="patch" accept-charset="UTF-8">
                             
                             
                              <input type="text" name="idPat" value="<%=p.getPatId()%>" hidden>
-                             <input type="text" name="id" value="<%=dh.getMeasureId()%> ">
+                             <input type="text" name="id" value="<%=dh.getMeasureId()%>" hidden>
                             <div class="form-group">
                                 <label for="comment"> <h3> Comment</h3></label>
                                 <textarea class="form-control" rows="6" id="comment" name="comment"></textarea>

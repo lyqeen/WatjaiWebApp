@@ -39,7 +39,7 @@ public class ServletShowPatientInfo extends HttpServlet {
         DataHealth dh = new DataHealth();
         List<DataHealth> dhList = null;
         List<DataHealth> dhListMea = null;
-        List<DataHealth> dhListMearead = null; 
+        List<DataHealth> dhListMeaunread = null; 
         Patient p = null;
          try {
            System.out.println("idPAt:"+idPat);
