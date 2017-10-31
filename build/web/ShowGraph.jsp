@@ -40,7 +40,7 @@
                     <div class="pull-right logout">
                         <span style="color: #00939a;font-size: 12pt;">
                             นายแพทย์สวัสดี ทวีสุจจ</span>
-                        <a href="#"> ลงชื่ออก </a>
+                        <a href="Login.jsp" style="color: white"> ลงชื่อออก </a>
                     </div>
 
                 </div>

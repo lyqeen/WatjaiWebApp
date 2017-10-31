@@ -47,7 +47,7 @@
                     <div class="pull-right logout">
                         <span style="color: #00939a;font-size: 12pt;">
                             นายแพทย์สวัสดี ทวีสุจจ</span>
-                        <a href="#"> ลงชื่ออก </a>
+                        <a href="Login.jsp" style="color: white"> ลงชื่อออก </a>
                     </div>
 
                 </div>
@@ -118,7 +118,7 @@
                                             เพศ
                                         </td>
                                         <td> 
-                                            <input type="text" class="info-pat" placeholder="เพศ">
+                                            <input type="text" class="info-pat" placeholder="เพศ" value="<%=p.getSex()%>">
                                         </td>
                                         <td valign="bottom"> 
                                             โรคประจำตัว
@@ -158,14 +158,29 @@
                                 <li class="active">
                                     <a href="#home" data-toggle="tab">ข้อมูลทั้งหมด</a>
                                 </li>
-                                <li><a href="#ios" data-toggle="tab">ข้อมมูลการเต้นผิดปกติของหัวใจ ยังไม่ได้ตรวจสอบ</a></li>
-                                <li><a href="#jmeter" data-toggle="tab">ข้อมมูลการเต้นผิดปกติของหัวใจ</a></li>
+                                <li><a href="#unread" data-toggle="tab">ข้อมมูลการเต้นผิดปกติของหัวใจ ยังไม่ได้ตรวจสอบ</a></li>
+                                <li><a href="#all" data-toggle="tab">ข้อมมูลการเต้นผิดปกติของหัวใจ</a></li>
 
                             </ul>
+                            <script type="text/javascript">
+                                $(document).on('click', '#refresh', function () {
+                                    var $link = $('li.active a[data-toggle="tab"]');
+                                    $link.parent().removeClass('active');
+                                    var tabLink = $link.attr('href');
+                                    $('#myTab a[href="' + tabLink + '"]').tab('show');
+                                });
+
+                                $('a[data-toggle="tab"]').on('shown.bs.tab', function () {
+                                    $('.show-time').html(new Date().toLocaleTimeString());
+                                });
+                            </script>
+
+
                             <div id="myTabContent" class="tab-content">
+                                
                                 <div class="tab-pane fade in active" id="home">
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table table-hover">
                                             <thead>
 
                                                 <!--title header-->
@@ -190,19 +205,50 @@
                                                     <td class="text-center"><%=d.getMeasureTime()%></td>
                                                 </tr>
                                                 <%}
-                                           }%>
+                                                    }%>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
 
-                                <div class="tab-pane fade" id="ios">
-                                    <p>iOS 是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod Touch 和 Apple TV。iOS 派生自 OS X，它们共享 Darwin 基础。OS X 操作系统是用在苹果电脑上，iOS 是苹果的移动版本。</p>
+                                <div class="tab-pane fade" id="unread">
+                                  
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+
+                                                <!--title header-->
+                                                <tr class="" height="40px">
+                                                    <th class="col-xs-4 text-center">ID </th>
+                                                    <th class="col-xs-8 text-center">วันที่และเวลาที่แจ้งเตือน</th>
+                                                </tr>
+                                            </thead>
+
+
+
+                                            <tbody>
+                                                <%
+                                                    List<DataHealth> listUnread = (List) request.getAttribute("dataUnread");
+
+                                                    if (listUnread != null) {
+                                                        for (DataHealth unread : listUnread) {
+                                                %>
+
+                                                <tr  onclick="window.document.location = 'ShowGraphAbnormal?idPat=<%=p.getPatId()%>&idMea=<%=unread.getMeasureId()%>';">
+                                                    <td class="text-center"><%=unread.getMeasureId()%></td>
+
+                                                    <td class="text-center"><%=unread.getMeasureTime()%></td>
+                                                </tr>
+                                                <%}
+                                                    }%>
+                                            </tbody>
+                                        </table>
+                                    </div> 
                                 </div>
 
-                                <div class="tab-pane fade" id="jmeter">
-                                   <div class="table-responsive">
-                                        <table class="table">
+                                <div class="tab-pane fade" id="all">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
                                             <thead>
 
                                                 <!--title header-->
@@ -217,18 +263,18 @@
                                             <tbody>
                                                 <%
                                                     List<DataHealth> dhm = (List) request.getAttribute("dataMea");
-                                                    
+
                                                     if (dhm != null) {
                                                         for (DataHealth dm : dhm) {
                                                 %>
-                                                
+
                                                 <tr  onclick="window.document.location = 'ShowGraphAbnormal?idPat=<%=p.getPatId()%>&idMea=<%=dm.getMeasureId()%>';">
                                                     <td class="text-center"><%=dm.getMeasureId()%></td>
 
                                                     <td class="text-center"><%=dm.getMeasureTime()%></td>
                                                 </tr>
                                                 <%}
-                                           }%>
+                                                    }%>
                                             </tbody>
                                         </table>
                                     </div>

@@ -331,7 +331,7 @@ public class DataHealth {
 
         try {
             
-            URL oracle = new URL("http://watjai.me:3000/patients/"+ patId +"/watjaimeasure/latest"); // URL to Parse
+            URL oracle = new URL("http://watjai.me:3000/watjaimeasure/showabnormal/"+patId); // URL to Parse
             URLConnection yc = oracle.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream(), "UTF-8"));
 

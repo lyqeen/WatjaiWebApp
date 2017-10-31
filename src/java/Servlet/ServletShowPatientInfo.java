@@ -45,6 +45,7 @@ public class ServletShowPatientInfo extends HttpServlet {
            System.out.println("idPAt:"+idPat);
              dhList = DataHealth.doReadListData(idPat);
              dhListMea = DataHealth.doReadListMeaData(idPat);
+             dhListMeaunread = DataHealth.showUnReadListMeaData(idPat);
              p = p.showInfo(idPat);
         System.out.println("showLiat"+dhList);
           
@@ -56,6 +57,7 @@ public class ServletShowPatientInfo extends HttpServlet {
         request.setAttribute("dataList", dhList);
         request.setAttribute("patObj", p);
         request.setAttribute("dataMea", dhListMea);
+        request.setAttribute("dataUnread", dhListMeaunread);
         getServletContext().getRequestDispatcher("/ShowPatientInfoListData_1.jsp").forward(request, response);
 
     }

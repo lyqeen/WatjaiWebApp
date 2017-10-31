@@ -50,11 +50,12 @@ public class Patient {
     private String docId;
     private String status;
     private String idMea;
+    private String sex;
 
     public Patient() {
     }
 
-    public Patient(String Fname, String Lname, String PatId, String underlyingDisease, int birthdate, String address, String subDistrict, String district, String province, String patTel, String bloodType, String docId, String idMea) {
+    public Patient(String Fname, String Lname, String PatId, String underlyingDisease, int birthdate, String address, String subDistrict, String district, String province, String patTel, String bloodType, String docId, String status, String idMea, String sex) {
         this.Fname = Fname;
         this.Lname = Lname;
         this.PatId = PatId;
@@ -67,8 +68,12 @@ public class Patient {
         this.patTel = patTel;
         this.bloodType = bloodType;
         this.docId = docId;
+        this.status = status;
         this.idMea = idMea;
+        this.sex = sex;
     }
+
+    
 
     public String getFname() {
         return Fname;
@@ -181,6 +186,18 @@ public class Patient {
     public void setIdMea(String idMea) {
         this.idMea = idMea;
     }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+    
+    
+    
+    
 
     public static void sendDataPatient(Patient p) throws IOException {
 
@@ -330,6 +347,9 @@ public class Patient {
 
                     String tel = (String) tutorials.get("patTel");
                     p.setPatTel(tel);
+                    
+                    String sex = (String) tutorials.get("sex");
+                    p.setPatTel(sex);
                 }
             }
         } catch (Exception e) {

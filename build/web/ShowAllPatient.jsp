@@ -11,6 +11,9 @@
 <html>
     <head>
 
+        <%
+            response.setIntHeader("Refresh", 300); //in your case 60*5=300 (for 5 min)
+        %>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -44,7 +47,7 @@
                     <div class="pull-right logout">
                         <span style="color: #00939a;font-size: 12pt;">
                             นายแพทย์สวัสดี ทวีสุจจ </span>
-                        <a href="Login.jsp"> ลงชื่อออก </a>
+                        <a href="Login.jsp" style="color: white"> ลงชื่อออก </a>
                     </div>
 
                 </div>
@@ -120,7 +123,6 @@
                             </thead>
 
                             <%
-
                                 List<Patient> plist = (List) request.getAttribute("patinetList");
                                 int i = 1;
                                 if (plist != null) {
@@ -142,9 +144,9 @@
                                             </div>
                                         </div>
                                     </td>
-                                       <td class="text-center"><%=pa.getStatus()%></td>
+                                    <td class="text-center"><%=pa.getStatus()%></td>
                                     <td class="text-center"><%=pa.getPatId()%></td>
-                                  
+
                                     <td class="text-center">13 กันยายน 2560</td>
                                 </tr>
                             </tbody>
