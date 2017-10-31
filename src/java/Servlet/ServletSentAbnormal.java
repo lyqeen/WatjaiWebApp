@@ -6,21 +6,27 @@
 package Servlet;
 
 import Model.DataHealth;
-import Model.Patient;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPatch;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 /**
  *
  * @author User
  */
-@WebServlet(name = "ServletShowGraphAbnormal", urlPatterns = {"/ShowGraphAbnormal"})
-public class ServletShowGraphAbnormal extends HttpServlet {
+
+@WebServlet(name = "ServletSentAbnormal", urlPatterns = {"/ServletSentAbnormal"})
+public class ServletSentAbnormal extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,19 +39,15 @@ public class ServletShowGraphAbnormal extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idMea = (String) request.getParameter("idMea");
-        String idPat = (String) request.getParameter("idPat");
-        Patient p = null;
-        DataHealth dh = null;
-        try {
-            dh = dh.showDataAbnormal(idMea);
-            p = p.showInfo(idPat);
-        } catch (Exception e) {
-        }
-
-        request.setAttribute("dataObj", dh);
-        request.setAttribute("patObj", p);
-        getServletContext().getRequestDispatcher("/ShowGraphAbnormal.jsp").forward(request, response);
+        String comment = request.getParameter("comment");
+        String idmea = request.getParameter("id");
+        
+        System.out.println(idmea);
+        System.out.println("cOMMENT : "+comment);
+        
+        DataHealth.Addcomment(idmea, comment);
+        
+        getServletContext().getRequestDispatcher("/ShowAllPatient").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

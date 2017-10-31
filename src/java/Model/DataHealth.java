@@ -13,6 +13,12 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPatch;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -211,6 +217,23 @@ public class DataHealth {
         return dh;
     }
     
+     static public  void Addcomment(String idmea,String comment) throws IOException{
+        HttpClient httpClient = HttpClientBuilder.create().build(); //Use this instead 
+        HttpPatch request = new HttpPatch("http://watjai.me:3000/watjaimeasure/"+idmea);
+        
+        
+        
+        StringEntity params
+                = new StringEntity(("{\"abnormalStatus\":\"true\","
+                        + "\"readStatus\":\"unread\","
+                        + "\"comment\":\""+comment+"\"}"),
+                        "UTF-8");
+
+        request.setEntity(params);
+        HttpResponse responseq = httpClient.execute(request);
+         System.out.println("Complete");
+            System.out.println(responseq);
+     } 
     
     
     
@@ -352,7 +375,8 @@ public class DataHealth {
         //showData(idmea);
         // DataHealth d = new DataHealth();
         //d.subStringDate("2017-09-24T19:37:49.453Z");
-        changeMeaStatus("ME1701000002");
+        changeMeaStatus("ME17103100003");
+        Addcomment("ME17103100002", "ทดลอง");
 
     }
 

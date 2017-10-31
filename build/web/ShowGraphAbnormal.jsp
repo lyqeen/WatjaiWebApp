@@ -161,32 +161,22 @@
                     
                     <div class="panel panel-default di">
 
-                        &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-                        <h3> <b>การ</b>วินิฉัยกราฟหัวใจมีความผิดปกติในเรื่องของ</h3>
-
-                        <form>
-                            <div class="checkArrhy"><br>
-
-                                <input type="radio" name="arrhyType" value="gx"> Arrhythmia  <br><br>
-                                <input type="radio" name="arrhyType" value="gx"> Bradyarrhythmia  <br><br>
-                                <input type="radio" name="arrhyType" value="gx"> Tachyarrhythmias  <br><br>
-                                <input type="radio" name="arrhyType" value="gx"> Irregular Heartbeat  <br><br>
-                                <input type="radio" name="arrhyType" value="gx"> Normal Heartbeat<br><br>
-
-                            </div>
-                            <div class="clearfix"></div>
-
+                         <form action="ServletSentAbnormal" method="post">
+                            
+                            
+                             <input type="text" name="idPat" value="<%=p.getPatId()%>" hidden>
+                             <input type="text" name="id" value="<%=dh.getMeasureId()%> ">
                             <div class="form-group">
-                                <label for="comment"> <h3> Comment:</h3></label>
-                                <textarea class="form-control" rows="6" id="comment"></textarea>
+                                <label for="comment"> <h3> Comment</h3></label>
+                                <textarea class="form-control" rows="6" id="comment" name="comment"></textarea>
                             </div>
 
 
                             <div class="clearfix"></div>
 
                             <div class="submit-btn"><br>
-
-                                <input formaction="ShowPats04.html" type="submit" value="Send Notification">
+                                 <input  type="submit" value="ส่งการแจ้งเตือน"  />
+                                <!--<input formaction="ShowPats04.html" type="submit" value="Send Notification">-->
                             </div>
                             <br><br>
                         </form>

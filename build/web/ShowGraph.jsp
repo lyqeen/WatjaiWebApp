@@ -166,29 +166,28 @@
                         &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
                        <h3> <b>การ</b>วินิฉัยกราฟหัวใจมีความผิดปกติในเรื่องของ</h3>
 
-                        <form>
+                        <form action="ServletSentNoti" method="post">
                             <div class="checkArrhy"><br>
 
-                                <input type="radio" name="arrhyType" value="gx"> Arrhythmia  <br><br>
-                                <input type="radio" name="arrhyType" value="gx"> Bradyarrhythmia  <br><br>
-                                <input type="radio" name="arrhyType" value="gx"> Tachyarrhythmias  <br><br>
-                                <input type="radio" name="arrhyType" value="gx"> Irregular Heartbeat  <br><br>
-                                <input type="radio" name="arrhyType" value="gx"> Normal Heartbeat<br><br>
+                                <input type="radio" name="arrhyType" value="Arrhythmia"> Arrhythmia  <br><br>
+                                <input type="radio" name="arrhyType" value="Bradyarrhythmia"> Bradyarrhythmia  <br><br>
+                                <input type="radio" name="arrhyType" value="Tachyarrhythmias"> Tachyarrhythmias  <br><br>
+                                <input type="radio" name="arrhyType" value="Irregular Heartbeat"> Irregular Heartbeat  <br><br>
+                                <input type="radio" name="arrhyType" value="Normal Heartbeat"> Normal Heartbeat<br><br>
 
                             </div>
                             <div class="clearfix"></div>
 
                             <div class="form-group">
                                 <label for="comment"> <h3> Comment:</h3></label>
-                                <textarea class="form-control" rows="6" id="comment"></textarea>
+                                <textarea class="form-control" rows="6" id="comment" name="comments"></textarea>
                             </div>
 
 
                             <div class="clearfix"></div>
                            
                             <div class="submit-btn"><br>
-
-                                <input formaction="ShowPats04.html" type="submit" value="Send Notification">
+                                <input  type="submit" value="Send Notification"  />
                             </div>
                             <br><br>
                         </form>

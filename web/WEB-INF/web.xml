@@ -36,6 +36,10 @@
         <servlet-name>ServletShowGraphAbnormal</servlet-name>
         <servlet-class>Servlet.ServletShowGraphAbnormal</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletSentAbnormal</servlet-name>
+        <servlet-class>Servlet.ServletSentAbnormal</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletShowAllPatient</servlet-name>
         <url-pattern>/ShowAllPatient</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>ServletShowGraphAbnormal</servlet-name>
         <url-pattern>/ShowGraphAbnormal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletSentAbnormal</servlet-name>
+        <url-pattern>/ServletSentAbnormal</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
