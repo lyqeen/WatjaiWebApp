@@ -32,13 +32,14 @@ public class ServletShowAllPatient extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Patient> plist = null;
-        Patient patient = new Patient();
+       // Patient patient = new Patient();
         try {
             plist = Patient.doReadPatientName();
-          
+            System.out.println("plist"+plist);
         } catch (Exception e) {
         }
         
+                
         request.setAttribute("patinetList", plist);
         getServletContext().getRequestDispatcher("/ShowAllPatient.jsp").forward(request, response);
     }

@@ -43,7 +43,7 @@
                     </a>
                     <div class="pull-right logout">
                         <span style="color: #00939a;font-size: 12pt;">
-                            นายแพทย์สวัสดี ทวีสุจจ </span>
+                            นายแพทย์สวัสดี ทวีสุจ </span>
                         <a href="Login.jsp" style="color: white"> ลงชื่อออก </a>
                     </div>
 
@@ -145,7 +145,7 @@
                                     <td >แพทย์ที่ดูแล</td>
 
                                     <td>
-                                        <input type="text" name="docterId" class="info-pat" readonly  value="DO1708001"/></td>       
+                                        <input type="text" name="docterId" class="info-pat" readonly  value="นายแพทย์สวัสดี ทวีสุจ"/></td>       
                                     </td>
                                 </tr>
 

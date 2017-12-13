@@ -22,6 +22,14 @@
         <!--font -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans|Prompt" rel="stylesheet">
         <title>ข้อมูล ECG ผิดปกติ</title>
+        
+         <style>
+            .opu{
+                overflow-x: auto;
+            }
+        </style>
+    </head>
+        
     </head>
     <body>
         <!-- header -->
@@ -39,7 +47,7 @@
                     </a>
                     <div class="pull-right logout">
                         <span style="color: #00939a;font-size: 12pt;">
-                            นายแพทย์สวัสดี ทวีสุจจ</span>
+                            นายแพทย์สวัสดี ทวีสุจ</span>
                         <a href="Login.jsp" style="color: white"> ลงชื่อออก </a>
                     </div>
 
@@ -51,8 +59,8 @@
         <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 
             <ul class="nav menu">
-                <li class="active customWH"><a href="/Watjai/ShowAllPatient" > รายชื่อผู้ป่วยทั้งหมด</a></li>
-                <li class="customWH"><a href="/Watjai/ShowDiaPatient"> รายชื่อผู้ป่วยรอการวินิจฉัย</a></li>
+                <li class="customWH"><a href="/Watjai/ShowAllPatient" > รายชื่อผู้ป่วยทั้งหมด</a></li>
+                <li class="active customWH"><a href="/Watjai/ShowDiaPatient"> รายชื่อผู้ป่วยรอการวินิจฉัย</a></li>
                 <li class="customWH"><a href="/Watjai/RegisterPatient.jsp"> ลงทะเบียนผู้ป่วย</a></li>
                 <li class="customWH"><a href="#"> จัดการผู้ป่วย </a></li>
             </ul>
@@ -94,12 +102,21 @@
                                     <input type="text" class="info-pat" placeholder="ID" value="<%=dh.getMeasureId()%>">
                                 </td>
                             </tr>
+                            <tr>
+                                 <td valign="bottom" style="padding-left: 2em;">
+                                    ตรวจพบความผิดปกติทาง
+                                </td>
+                                <td>    
+                                    <input type="text" class="info-pat" placeholder="อาการ" value="<%=dh.getAbnormalDetail()%>">
+                                </td>
+                            </tr>
                         </table><br><br>
                         <!--ID = <%=dh.getMeasureId()%> <br>
                         TIME =<%=dh.getMeasureTime()%> <br>
                         DATA = <%=dh.getMeasureData()%><br>-->
-
-                        <div id="chartContainer" style="height: 400px; width: 100%;"></div>
+                    </div>
+                    <div class="panel panel-default di opu">
+                        <div id="chartContainer" style="height: 400px; width: 17000px;"></div>
                         <script type="text/javascript">
                             var xAxisStripLinesArray = [];
                             var yAxisStripLinesArray = [];
@@ -149,8 +166,8 @@
                                     if (i % 1000 != 0)
                                         yAxisStripLinesArray.push({value: i, thickness: 0.7, color: "#DC74A5"});
                                 }
-                                for (var i = 0; i < 1400; i = i + 1) {
-                                    if (i % 200 != 0)
+                                for (var i = 0; i < 14000; i = i + 1) {
+                                    if (i % 1 === 0)//i % 200 != 0
                                         xAxisStripLinesArray.push({value: i, thickness: 0.7, color: "#DC74A5"});
                                 }
                             }
@@ -164,14 +181,14 @@
                          <form action="ServletSentAbnormal" method="patch" accept-charset="UTF-8">
                             
                             
-                             <input type="text" name="idPat" value="<%=p.getPatId()%>" hidden>
-                             <input type="text" name="id" value="<%=dh.getMeasureId()%>" hidden>
+                             <input type="hidden" name="idPat" value="<%=p.getPatId()%>" hidden>
+                             <input type="hidden" name="id" value="<%=dh.getMeasureId()%>" hidden>
                             <div class="form-group">
                                 <label for="comment"> <h3> Comment</h3></label>
                                 <textarea class="form-control" rows="6" id="comment" name="comment"></textarea>
                             </div>
-
-
+                            
+                           <!--<input id='noArrhy' type='checkbox' value='กราฟเป็นปกติ' name='noArry'> กราฟเป็นปกติ  --> 
                             <div class="clearfix"></div>
 
                             <div class="submit-btn"><br>

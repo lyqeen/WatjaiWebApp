@@ -44,6 +44,7 @@ public class ServletSentAbnormal extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         String comment = request.getParameter("comment");
         String idmea = request.getParameter("id");
+        String idPat = request.getParameter("idPat");
 
         System.out.println(idmea);
         System.out.println("cOMMENT : " + comment);
@@ -56,7 +57,7 @@ public class ServletSentAbnormal extends HttpServlet {
             StringEntity params
                     = new StringEntity(("{\"abnormalStatus\":\"true\","
                             + "\"readStatus\":\"unread\","
-                            + "\"comment\":\""+comment+ "\"}"),
+                            + "\"comment\":\""+comment+"\"}"),
                             "UTF-8");
             System.out.println("param : " + params);
             //params.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
@@ -70,7 +71,7 @@ public class ServletSentAbnormal extends HttpServlet {
         }
           
 
-        getServletContext().getRequestDispatcher("/ShowAllPatient").forward(request, response);
+        getServletContext().getRequestDispatcher("/ServletShowPatientInfo?idPat="+idPat).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

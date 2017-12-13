@@ -22,6 +22,13 @@
         <!--font -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans|Prompt" rel="stylesheet">
         <title>ข้อมูล ECG</title>
+        
+         <style>
+            .opu{
+                overflow-x: auto;
+            }
+        </style>
+    </head>
     </head>
     <body>
         <!-- header -->
@@ -39,7 +46,7 @@
                     </a>
                     <div class="pull-right logout">
                         <span style="color: #00939a;font-size: 12pt;">
-                            นายแพทย์สวัสดี ทวีสุจจ</span>
+                            นายแพทย์สวัสดี ทวีสุจ</span>
                         <a href="Login.jsp" style="color: white"> ลงชื่อออก </a>
                     </div>
 
@@ -102,8 +109,9 @@
                         <!--ID = <%=dh.getMeasureId()%> <br>
                         TIME =<%=dh.getMeasureTime()%> <br>
                         DATA = <%=dh.getMeasureData()%><br>-->
-
-                        <div id="chartContainer" style="height: 400px; width: 100%;"></div>
+                    </div>
+                     <div class="panel panel-default opu">
+                        <div id="chartContainer" style="height: 400px; width: 15000px;"></div>
                         <script type="text/javascript">
                             var xAxisStripLinesArray = [];
                             var yAxisStripLinesArray = [];
@@ -153,45 +161,15 @@
                                     if (i % 1000 != 0)
                                         yAxisStripLinesArray.push({value: i, thickness: 0.7, color: "#DC74A5"});
                                 }
-                                for (var i = 0; i < 1400; i = i + 1) {
-                                    if (i % 200 != 0)
+                                for (var i = 0; i < 10000; i = i + 1) {
+                                    if (i % 1 === 0)
                                         xAxisStripLinesArray.push({value: i, thickness: 0.7, color: "#DC74A5"});
                                 }
                             }
                         </script>
                     </div>
 
-                    <div class="panel panel-default di">
-                       
-                        &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;
-                       <h3> <b>การ</b>วินิฉัยกราฟหัวใจมีความผิดปกติในเรื่องของ</h3>
-
-                        <form action="ServletSentNoti" method="post">
-                            <div class="checkArrhy"><br>
-
-                                <input type="radio" name="arrhyType" value="Arrhythmia"> Arrhythmia  <br><br>
-                                <input type="radio" name="arrhyType" value="Bradyarrhythmia"> Bradyarrhythmia  <br><br>
-                                <input type="radio" name="arrhyType" value="Tachyarrhythmias"> Tachyarrhythmias  <br><br>
-                                <input type="radio" name="arrhyType" value="Irregular Heartbeat"> Irregular Heartbeat  <br><br>
-                                <input type="radio" name="arrhyType" value="Normal Heartbeat"> Normal Heartbeat<br><br>
-
-                            </div>
-                            <div class="clearfix"></div>
-
-                            <div class="form-group">
-                                <label for="comment"> <h3> Comment:</h3></label>
-                                <textarea class="form-control" rows="6" id="comment" name="comments"></textarea>
-                            </div>
-
-
-                            <div class="clearfix"></div>
-                           
-                            <div class="submit-btn"><br>
-                                <input  type="submit" value="Send Notification"  />
-                            </div>
-                            <br><br>
-                        </form>
-                    </div>
+                    
                 </div>
             </div>
 

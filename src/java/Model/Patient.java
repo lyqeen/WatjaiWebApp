@@ -230,7 +230,7 @@ public class Patient {
 
     static public List<Patient> doReadPatientName() {
         List<Patient> patlist = null;
-        JSONParser parser = new JSONParser();
+         JSONParser parser = new JSONParser();
         Patient pat = null;
 
         try {
@@ -241,28 +241,33 @@ public class Patient {
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
                 JSONArray a = (JSONArray) parser.parse(inputLine);
-                if (patlist == null) {
-                    patlist = new ArrayList<>();
+                if(patlist==null){
+                    patlist=new ArrayList<>();
                 }
                 // Loop through each item
                 for (Object o : a) {
                     JSONObject tut = (JSONObject) o;
                     pat = new Patient();
                     String id = (String) tut.get("patId");
+               
                     pat.setPatId(id);
 
                     String name = (String) tut.get("patFirstName");
+                 
                     pat.setFname(name);
 
                     String lastname = (String) tut.get("patLastName");
+                 
                     pat.setLname(lastname);
-
+                    
                     String disease = (String) tut.get("underlyingDisease");
+                 
                     pat.setUnderlyingDisease(disease);
                     
                     String check = pat.checkStatus(id);
                     pat.setStatus(check);
                     patlist.add(pat);
+                        
 
                 }
             }
@@ -270,7 +275,6 @@ public class Patient {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return patlist;
     }
     
@@ -346,10 +350,11 @@ public class Patient {
                     p.setBloodType(blood);
 
                     String tel = (String) tutorials.get("patTel");
+                   // System.out.println("tel patietn:"+tel);
                     p.setPatTel(tel);
                     
                     String sex = (String) tutorials.get("sex");
-                    p.setPatTel(sex);
+                    p.setSex(sex);
                 }
             }
         } catch (Exception e) {
@@ -424,6 +429,10 @@ public class Patient {
         //String dt = "1995-12-19T00:00:00.000Z";
         //System.out.println("pastm : " + p.calAge(dt));
         //String a = showInfo("PA1709001").Fname;
+        
+        p.doReadPatientName();
+        
+                
 
     }
 

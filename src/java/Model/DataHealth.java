@@ -34,16 +34,20 @@ public class DataHealth {
     private String measureId;
     private String measureTime;
     private String patId;
-    private ArrayList<Double> measureData;
+    private ArrayList<Float> measureData;
+    private String comment;
+    private String abnormalDetail;
 
     public DataHealth() {
     }
 
-    public DataHealth(String measureId, String measureTime, String patId, ArrayList<Double> measureData) {
+    public DataHealth(String measureId, String measureTime, String patId, ArrayList<Float> measureData, String comment, String abnormalDetail) {
         this.measureId = measureId;
         this.measureTime = measureTime;
         this.patId = patId;
         this.measureData = measureData;
+        this.comment = comment;
+        this.abnormalDetail = abnormalDetail;
     }
 
     public String getMeasureId() {
@@ -70,12 +74,28 @@ public class DataHealth {
         this.patId = patId;
     }
 
-    public ArrayList<Double> getMeasureData() {
+    public ArrayList<Float> getMeasureData() {
         return measureData;
     }
 
-    public void setMeasureData(ArrayList<Double> measureData) {
+    public void setMeasureData(ArrayList<Float> measureData) {
         this.measureData = measureData;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getAbnormalDetail() {
+        return abnormalDetail;
+    }
+
+    public void setAbnormalDetail(String abnormalDetail) {
+        this.abnormalDetail = abnormalDetail;
     }
 
     static public List<DataHealth> doReadListData(String patId) { //show List data each patient
@@ -84,7 +104,7 @@ public class DataHealth {
         DataHealth dh = null;
 
         try {
-            URL oracle = new URL("http://watjai.me:3000/patients/" + patId + "/watjainormal/latest"); // URL to Parse
+            URL oracle = new URL("http://watjai.me:3000/patients/"+patId+"/watjainormal/latest"); // URL to Parse
             URLConnection yc = oracle.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream(), "UTF-8"));
 
@@ -105,7 +125,7 @@ public class DataHealth {
                     String meaTime = (String) tut.get("measureTime");
                     String newdt = dh.subStringDate(meaTime);
                     dh.setMeasureTime(newdt);
-                    System.out.println("TIME : " + newdt);
+                   
 
                     dhlist.add(dh);
 
@@ -134,26 +154,23 @@ public class DataHealth {
                 // Loop through each item
                 for (Object o : a) {
                     JSONObject tutorials = (JSONObject) o;
+                    String meaId = (String) tutorials.get("measureId");
+                    dh.setMeasureId(meaId);
 
-                    String id = (String) tutorials.get("measureId");
-                    dh.setMeasureId(id);
-                    System.out.println("ID : " + id);
-
-                    String time = (String) tutorials.get("measureTime");
-                    String newdt = dh.subStringDate(time);
+                    String meaTime = (String) tutorials.get("measureTime");
+                    String newdt = dh.subStringDate(meaTime);
                     dh.setMeasureTime(newdt);
-                    System.out.println("TIME : " + newdt);
-
-                    ArrayList<Double> list = new ArrayList<Double>();
+                    
+                    ArrayList<Float> list = new ArrayList<Float>();
                     list.toArray();
                     JSONArray jsonArray = (JSONArray) tutorials.get("measureData");
                     if (jsonArray != null) {
                         int len = jsonArray.size();
                         for (int i = 0; i < len; i++) {
                             //list.add((Double) jsonArray.get(i));
-                            list.add((Double) Double.parseDouble(jsonArray.get(i) + ""));
+                            list.add((Float) Float.parseFloat(jsonArray.get(i) + ""));
 
-                            System.out.print(list);
+                           
                         }
                     }
                     dh.setMeasureData(list);
@@ -167,12 +184,96 @@ public class DataHealth {
 
         return dh;
     }
-    
-    static public DataHealth showDataAbnormal(String idmea) {//showGraph
+
+    static public void Addcomment(String idmea, String comment) throws IOException {
+        HttpClient httpClient = HttpClientBuilder.create().build(); //Use this instead 
+        
+        HttpPost request = new HttpPost("http://watjai.me:3000/watjaimeasure/" + idmea);
+       
+
+        StringEntity params
+                = new StringEntity(("{\"abnormalStatus\":\"true\","
+                        + "\"readStatus\":\"unread\","
+                        + "\"comment\":\"" + comment + "\"}"),
+                        "UTF-8");
+
+        request.setEntity(params);
+        HttpResponse responseq = httpClient.execute(request);
+      
+    }
+
+    public String subStringDate(String dateTimes) {
+        String newTimes = dateTimes.substring(11, 19);
+        String newDate = dateTimes.substring(0, 10);
+        
+        String newDateTime = newDate + " " + newTimes;
+        
+        return newDateTime;
+    }
+
+    static public List<DataHealth> ReciveURL(String text1, String patID, String text2) {
+        String newURL;
+        newURL = text1 + patID + text2;
+        //System.out.println("newURL : " + newURL);
+        List<DataHealth> dataHealth = null;
+        dataHealth = doReadInfoMeasureData(patID, newURL);
+        //System.out.println("dataHealt : " + dataHealth);
+        return dataHealth;
+    }
+    //"http://watjai.me:3000/patients/"+patId+"/watjaimeasure/latest"
+    // URL oracle = new URL("http://watjai.me:3000/watjaimeasure/showabnormal/"+patId); // URL to Parse
+    /*
+    show unread
+     */
+
+    static public List<DataHealth> doReadInfoMeasureData(String patid, String newURL) {
+        List<DataHealth> dhlist = null;
+        JSONParser parser = new JSONParser();
+        DataHealth dh = null;
+
+        try {
+
+            URL oracle = new URL(newURL); // URL to Parse
+            URLConnection yc = oracle.openConnection();
+            BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream(), "UTF-8"));
+
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                JSONArray a = (JSONArray) parser.parse(inputLine);
+                if (dhlist == null) {
+                    dhlist = new ArrayList<>();
+                }
+                // Loop through each item
+                for (Object o : a) {
+                    JSONObject tut = (JSONObject) o;
+                    dh = new DataHealth();
+
+                    String meaId = (String) tut.get("measuringId");
+                    dh.setMeasureId(meaId);
+                  
+
+                    String meaTime = (String) tut.get("alertTime");
+                    String newdt = dh.subStringDate(meaTime);
+                    dh.setMeasureTime(newdt);
+
+                   
+
+                    dhlist.add(dh);
+
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dhlist;
+    }
+
+    static public DataHealth showDataAbnormal(String idmea) {//showGraphMeasure
         DataHealth dh = new DataHealth();
         JSONParser parser = new JSONParser();
         try {
-            URL oracle = new URL("http://watjai.me:3000/watjaimeasure/" + idmea); // URL to Parse
+            URL oracle = new URL("http://watjai.me:3000/watjaimeasure/"+idmea); // URL to Parse
             URLConnection yc = oracle.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
 
@@ -183,26 +284,28 @@ public class DataHealth {
                 // Loop through each item
                 for (Object o : a) {
                     JSONObject tutorials = (JSONObject) o;
+                    String meaId = (String) tutorials.get("measuringId");
+                    dh.setMeasureId(meaId);
+                   
 
-                    String id = (String) tutorials.get("measuringId");
-                    dh.setMeasureId(id);
-                    System.out.println("ID : " + id);
-
-                    String time = (String) tutorials.get("alertTime");
-                    String newdt = dh.subStringDate(time);
+                    String meaTime = (String) tutorials.get("alertTime");
+                    String newdt = dh.subStringDate(meaTime);
                     dh.setMeasureTime(newdt);
-                    System.out.println("TIME : " + newdt);
 
-                    ArrayList<Double> list = new ArrayList<Double>();
+                    String meaDetail = (String) tutorials.get("abnormalDetail");
+                    dh.setAbnormalDetail(meaDetail);
+                    
+                    ArrayList<Float> list = new ArrayList<Float>();
                     list.toArray();
                     JSONArray jsonArray = (JSONArray) tutorials.get("measuringData");
+                    
                     if (jsonArray != null) {
                         int len = jsonArray.size();
                         for (int i = 0; i < len; i++) {
                             //list.add((Double) jsonArray.get(i));
-                            list.add((Double) Double.parseDouble(jsonArray.get(i) + ""));
+                            list.add((Float) Float.parseFloat(jsonArray.get(i) + ""));
 
-                            System.out.print(list);
+                            
                         }
                     }
                     dh.setMeasureData(list);
@@ -216,168 +319,18 @@ public class DataHealth {
 
         return dh;
     }
-    
-     static public  void Addcomment(String idmea,String comment) throws IOException{
-        HttpClient httpClient = HttpClientBuilder.create().build(); //Use this instead 
-        System.out.println("Print patch"+httpClient);
-        HttpPost request = new HttpPost("http://watjai.me:3000/watjaimeasure/"+idmea);
-         System.out.println("Print patch"+request);
-        
-        
-        StringEntity params
-                = new StringEntity(("{\"abnormalStatus\":\"true\","
-                        + "\"readStatus\":\"unread\","
-                        + "\"comment\":\""+comment+"\"}"),
-                        "UTF-8");
-
-        request.setEntity(params);
-        HttpResponse responseq = httpClient.execute(request);
-         System.out.println("Complete");
-            System.out.println(responseq);
-     } 
-    
-    
-    
-
-    public String subStringDate(String dateTimes) {
-        String newTimes = dateTimes.substring(11, 19);
-        String newDate = dateTimes.substring(0, 10);
-        // System.out.println("new Time : "+ newTimes);
-        // System.out.println("new Date : "+ newDate);
-        String newDateTime = newDate + " " + newTimes;
-        // System.out.println("newDT : "+ newDateTime);
-        return newDateTime;
-    }
-
-    public static void changeMeaStatus(String idmea) {
-      
-        JSONParser parser = new JSONParser();
-        try {
-            URL oracle = new URL("http://watjai.me:3000/watjaimeasure/" + idmea); // URL to Parse
-            URLConnection yc = oracle.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                JSONArray a = (JSONArray) parser.parse(inputLine);
-
-                // Loop through each item
-                for (Object o : a) {
-                    JSONObject jo = (JSONObject) o;
-
-                    boolean id = (boolean) jo.get("abnormalStatus");
-                    System.out.println("ID : " + id);
-                    jo.put("abnormalStatus", true);
-                    
-                    id = (boolean) jo.get("abnormalStatus");
-                    System.out.println("after : " + id);
-                }
-                
-            }
-            in.close();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-    
-    
-    static public List<DataHealth> doReadListMeaData(String patId){
-         List<DataHealth> dhlist = null;
-        JSONParser parser = new JSONParser();
-        DataHealth dh = null;
-
-        try {
-            
-            URL oracle = new URL("http://watjai.me:3000/patients/"+ patId +"/watjaimeasure/latest"); // URL to Parse
-            URLConnection yc = oracle.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream(), "UTF-8"));
-
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                JSONArray a = (JSONArray) parser.parse(inputLine);
-                if (dhlist == null) {
-                    dhlist = new ArrayList<>();
-                }
-                // Loop through each item
-                for (Object o : a) {
-                    JSONObject tut = (JSONObject) o;
-                    dh = new DataHealth();
-
-                    String meaId = (String) tut.get("measuringId");
-                    dh.setMeasureId(meaId);
-
-                    String meaTime = (String) tut.get("alertTime");
-                    String newdt = dh.subStringDate(meaTime);
-                    dh.setMeasureTime(newdt);
-                    System.out.println("TIME : " + newdt);
-
-                    dhlist.add(dh);
-
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return dhlist;
-    }
-    
-    
-    static public List<DataHealth> showUnReadListMeaData(String patId){
-         List<DataHealth> dhlist = null;
-        JSONParser parser = new JSONParser();
-        DataHealth dh = null;
-
-        try {
-            
-            URL oracle = new URL("http://watjai.me:3000/watjaimeasure/showabnormal/"+patId); // URL to Parse
-            URLConnection yc = oracle.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream(), "UTF-8"));
-
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                JSONArray a = (JSONArray) parser.parse(inputLine);
-                if (dhlist == null) {
-                    dhlist = new ArrayList<>();
-                }
-                // Loop through each item
-                for (Object o : a) {
-                    JSONObject tut = (JSONObject) o;
-                    dh = new DataHealth();
-
-                    String meaId = (String) tut.get("measuringId");
-                    dh.setMeasureId(meaId);
-
-                    String meaTime = (String) tut.get("alertTime");
-                    String newdt = dh.subStringDate(meaTime);
-                    dh.setMeasureTime(newdt);
-                    System.out.println("TIME : " + newdt);
-
-                    dhlist.add(dh);
-
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return dhlist;
-    }
-    
-    
-    
-    
-    
 
     public static void main(String[] args) throws IOException {
         //String idmea = "ME17092400016";
         //showData(idmea);
-        // DataHealth d = new DataHealth();
+        //DataHealth d = new DataHealth();
+
         //d.subStringDate("2017-09-24T19:37:49.453Z");
-        changeMeaStatus("ME17103100003");
-        Addcomment("ME17103100002", "ทดลอง");
+        //changeMeaStatus("ME17103100003");
+        //Addcomment("ME17103100002", "ทดลอง");
+        DataHealth.doReadListData("PA1709001");
+        // showDataAbnormal("ME17103100007");
+       // ReciveURL("http://watjai.me:3000/watjaimeasure/showabnormal/", "PA1709001", "");
 
     }
 

@@ -11,9 +11,7 @@
 <html>
     <head>
 
-        <%
-            response.setIntHeader("Refresh", 300); //in your case 60*5=300 (for 5 min)
-        %>
+       
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -46,7 +44,7 @@
                     </a>
                     <div class="pull-right logout">
                         <span style="color: #00939a;font-size: 12pt;">
-                            นายแพทย์สวัสดี ทวีสุจจ </span>
+                            นายแพทย์สวัสดี ทวีสุจ </span>
                         <a href="Login.jsp" style="color: white"> ลงชื่อออก </a>
                     </div>
 
@@ -116,9 +114,9 @@
                                 <tr class="ji">
                                     <th class="col-xs-1 text-center">#</th>
                                     <th class="col-xs-5">ชื่อ-นามสกุล</th>
-                                    <th class="col-xs-2 text-center">สภานะ</th>
+                                   
                                     <th class="col-xs-2 text-center">รหัสผู้ป่วย</th>
-                                    <th class="col-xs-2 text-center">วันที่ส่งผล</th>
+                           
                                 </tr>
                             </thead>
 
@@ -131,24 +129,25 @@
                             %>
 
                             <tbody>                                    
-                                <tr onclick="window.document.location = 'ServletShowPatientInfo?idPat=<%=pa.getPatId()%>';">    
-                                    <td class="text-center"> <%=i%> </td>
-                                    <td>
-                                        <div class="media">
-                                            <a href="#" class="pull-left">
-                                                <img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" class="media-photo">
-                                            </a>
-                                            <div class="media-body">
-                                                <%=pa.getFname()%>  <%=pa.getLname()%>
-                                                <p class="summary">โรคประจำตัว <%=pa.getUnderlyingDisease()%></p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-center"><%=pa.getStatus()%></td>
-                                    <td class="text-center"><%=pa.getPatId()%></td>
+                                <tr onclick="window.document.location = 'ServletShowPatientInfo?idPat=<%=pa.getPatId()%>';">  
+                              
+                            <td class="text-center"> <%=i%> </td>
+                            <td>
+                                <div class="media">
+                                    <a href="#" class="pull-left">
+                                        <img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" class="media-photo">
+                                    </a>
+                                    <div class="media-body">
+                                        <%=pa.getFname()%>  <%=pa.getLname()%>
+                                        <p class="summary">โรคประจำตัว <%=pa.getUnderlyingDisease()%></p>
+                                    </div>
+                                </div>
+                            </td>
+                           
+                            <td class="text-center"><%=pa.getPatId()%></td>
 
-                                    <td class="text-center">13 กันยายน 2560</td>
-                                </tr>
+                       
+                            </tr>
                             </tbody>
 
                             <% i++;

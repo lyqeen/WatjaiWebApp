@@ -39,25 +39,24 @@ public class ServletShowPatientInfo extends HttpServlet {
         DataHealth dh = new DataHealth();
         List<DataHealth> dhList = null;
         List<DataHealth> dhListMea = null;
-        List<DataHealth> dhListMeaunread = null; 
+        List<DataHealth> dhListMeaUnread = null; 
         Patient p = null;
          try {
            System.out.println("idPAt:"+idPat);
              dhList = DataHealth.doReadListData(idPat);
-             dhListMea = DataHealth.doReadListMeaData(idPat);
-             dhListMeaunread = DataHealth.showUnReadListMeaData(idPat);
+             dhListMea = DataHealth.ReciveURL("http://watjai.me:3000/patients/",idPat,"/watjaimeasure/latest");
+             dhListMeaUnread = DataHealth.ReciveURL("http://watjai.me:3000/watjaimeasure/showabnormal/",idPat,"");
              p = p.showInfo(idPat);
-        System.out.println("showLiat"+dhList);
+        System.out.println("showList"+dhList);
           
         } catch (Exception e) {
         }
         
-        
-      
+       
         request.setAttribute("dataList", dhList);
         request.setAttribute("patObj", p);
         request.setAttribute("dataMea", dhListMea);
-        request.setAttribute("dataUnread", dhListMeaunread);
+        request.setAttribute("dataUnread", dhListMeaUnread);
         getServletContext().getRequestDispatcher("/ShowPatientInfoListData_1.jsp").forward(request, response);
 
     }

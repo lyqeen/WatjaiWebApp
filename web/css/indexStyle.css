@@ -2,12 +2,12 @@ body, html {
     height: 100%;
     margin: 0;
     font-family: 'Prompt','Open Sans', sans-serif;
-    background-color: red
+    background-color: #3ba6ba;
 }
 
 .bg {
     /* The image used */
-    background-image: url("../image/backgroundBlueDoc.jpg");
+    background-image: url("../image/backgroundBlueDoc01.jpg");
 
     /* Full height */
     height: 100%; 

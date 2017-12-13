@@ -46,7 +46,7 @@
                     </a>
                     <div class="pull-right logout">
                         <span style="color: #00939a;font-size: 12pt;">
-                            นายแพทย์สวัสดี ทวีสุจจ</span>
+                            นายแพทย์สวัสดี ทวีสุจ</span>
                         <a href="Login.jsp" style="color: white"> ลงชื่อออก </a>
                     </div>
 
@@ -158,8 +158,8 @@
                                 <li class="active">
                                     <a href="#home" data-toggle="tab">ข้อมูลทั้งหมด</a>
                                 </li>
-                                <li><a href="#unread" data-toggle="tab">ข้อมมูลการเต้นผิดปกติของหัวใจ ยังไม่ได้ตรวจสอบ</a></li>
-                                <li><a href="#all" data-toggle="tab">ข้อมมูลการเต้นผิดปกติของหัวใจ</a></li>
+                                <li><a href="#unread" data-toggle="tab">ข้อมูลการเต้นผิดปกติของหัวใจ ยังไม่ได้ตรวจสอบ</a></li>
+                                <li><a href="#all" data-toggle="tab">ข้อมูลการเต้นผิดปกติของหัวใจ</a></li>
 
                             </ul>
                             <script type="text/javascript">
@@ -268,7 +268,7 @@
                                                         for (DataHealth dm : dhm) {
                                                 %>
 
-                                                <tr  onclick="window.document.location = 'ShowGraphAbnormal?idPat=<%=p.getPatId()%>&idMea=<%=dm.getMeasureId()%>';">
+                                                <tr  onclick="window.document.location = 'ShowGraogRead?idPat=<%=p.getPatId()%>&idMea=<%=dm.getMeasureId()%>';">
                                                     <td class="text-center"><%=dm.getMeasureId()%></td>
 
                                                     <td class="text-center"><%=dm.getMeasureTime()%></td>
