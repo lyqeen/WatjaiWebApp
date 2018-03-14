@@ -8,8 +8,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPatch;
@@ -187,9 +191,13 @@ public class DataHealth {
         
         HttpPost request = new HttpPost("http://139.59.98.254:3000/watjaimeasure/" + idmea);
        
-
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+        df.setTimeZone(tz);
+        String nowAsISO = df.format(new Date());
+        
         StringEntity params
-                = new StringEntity(("{\"measuringTime\":\"true\","
+                = new StringEntity(("{\"measuringTime\":\""+nowAsISO+"\","
                         + "\"comment\":\"" + comment + "\"}"),
                         "UTF-8");
 
