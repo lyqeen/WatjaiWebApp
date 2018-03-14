@@ -204,7 +204,7 @@ public class Patient {
         //String a = p.getFname();
         HttpClient httpClient = HttpClientBuilder.create().build(); //Use this instead 
 
-        HttpPost request = new HttpPost("http://watjai.me:3000/patients");
+        HttpPost request = new HttpPost("http://139.59.98.254:3000/patients");
 
         StringEntity params
                 = new StringEntity(("{\"patFirstName\":\"" + p.getFname() + "\","
@@ -218,6 +218,8 @@ public class Patient {
                         + "\"bloodType\":\"O\","
                         + "\"docId\":\"DO1708001\","
                         + "\"underlyingDisease\":\"ภูมิแพ้ หืดหอบ\","
+                        + "\"relativeName\":\"ภูมิแพ้ หืดหอบ\","
+                        + "\"relativeTel\":\"ภูมิแพ้ หืดหอบ\","
                         + "\"patPic\":\"SLKDJFSI\"}"),
                         "UTF-8");
 
@@ -234,7 +236,7 @@ public class Patient {
         Patient pat = null;
 
         try {
-            URL oracle = new URL("http://watjai.me:3000/patients"); // URL to Parse
+            URL oracle = new URL("http://139.59.98.254:3000/patients"); // URL to Parse
             URLConnection yc = oracle.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream(), "UTF-8"));
 
@@ -299,7 +301,7 @@ public class Patient {
         Patient p = null;
 
         try {
-            URL oracle = new URL("http://watjai.me:3000/doctors/DO1708001/showpatients/" + patId); // URL to Parse
+            URL oracle = new URL("http://139.59.98.254:3000/doctors/DO1708001/showpatients/" + patId); // URL to Parse
             URLConnection yc = oracle.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream(), "UTF-8"));
 
@@ -380,7 +382,7 @@ public class Patient {
         Patient pat = null;
 
         try {
-            URL oracle = new URL("http://watjai.me:3000/watjaimeasure/showabnormal"); // URL to Parse
+            URL oracle = new URL("http://139.59.98.254:3000/watjaimeasure/showabnormal"); // URL to Parse
             URLConnection yc = oracle.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream(), "UTF-8"));
 

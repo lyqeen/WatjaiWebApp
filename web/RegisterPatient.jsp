@@ -148,6 +148,16 @@
                                         <input type="text" name="docterId" class="info-pat" readonly  value="นายแพทย์สวัสดี ทวีสุจ"/></td>       
                                     </td>
                                 </tr>
+                                
+                                <tr  height="75px">
+                                    <td >ชื่อญาติของผู้ป่วย</td>
+                                    <td><input type="text" name="relativeName"   class="info-pat" placeholder="ชื่อญาติของผู้ป่วย" required /></td>
+                                    <td >เบอร์โทรศัพท์ญาติของผู้ป่วย</td>
+
+                                    <td>
+                                        <input type="text" name="relativeTel" class="info-pat" placeholder="เบอร์โทรศัพท์ญาติของผู้ป่วย" required /></td>       
+                                    </td>
+                                </tr>
 
                             </table><br>
                             <div class="submit-btn">

@@ -51,6 +51,8 @@ public class der extends HttpServlet {
         String District = request.getParameter("district");
         String province = request.getParameter("province");
         String sex = request.getParameter("sex");
+        String relativeName = request.getParameter("relativeName");
+        String relativeTel = request.getParameter("relativeTel");
 
         if (name.isEmpty() || lname.isEmpty() || bd.isEmpty() || Address.isEmpty() || tel.isEmpty() || bloodtype.isEmpty()) {
 
@@ -64,7 +66,7 @@ public class der extends HttpServlet {
 
             HttpClient httpClient = HttpClientBuilder.create().build(); //Use this instead 
 
-            HttpPost requestq = new HttpPost("http://watjai.me:3000/patients");
+            HttpPost requestq = new HttpPost("http://139.59.98.254:3000/patients");
 
             System.out.println(bd);
 
@@ -81,6 +83,8 @@ public class der extends HttpServlet {
                                         +"\"docId\" : \"DO1708001\","
                                         +"\"underlyingDisease\" : \""+underly+"\","
                                         +"\"sex\" : \""+sex+"\","
+                                        +"\"relativeName\" : \""+relativeName+"\","
+                                        +"\"relativeTel\" : \""+relativeTel+"\","
                                         +"\"patPic\" : \"SLKDJFSI\"}"),
                         "UTF-8");
 

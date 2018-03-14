@@ -4,6 +4,7 @@
     Author     : User
 --%>
 
+<%@page import="Model.Doctor"%>
 <%@page import="Model.Patient"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -44,7 +45,10 @@
                     </a>
                     <div class="pull-right logout">
                         <span style="color: #00939a;font-size: 12pt;">
-                            นายแพทย์สวัสดี ทวีสุจ </span>
+                           
+                        fff
+                        
+                        </span>
                         <a href="Login.jsp" style="color: white"> ลงชื่อออก </a>
                     </div>
 

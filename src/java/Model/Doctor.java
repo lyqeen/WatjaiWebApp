@@ -83,7 +83,7 @@ public class Doctor {
         Doctor dr = null;
 
         try {
-            URL oracle = new URL("http://watjai.me:3000/doctors/" + doctorId); // URL to Parse
+            URL oracle = new URL("http://139.59.98.254:3000/doctors/" + doctorId); // URL to Parse
             URLConnection yc = oracle.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream(), "UTF-8"));
 
@@ -134,6 +134,7 @@ public class Doctor {
             if(userpass.equals(dr2)){
                 check = true;
             }
+            
             
         }
         /*if(user.equals(showDoctorDetail(user).docId)){

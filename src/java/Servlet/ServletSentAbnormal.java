@@ -50,7 +50,7 @@ public class ServletSentAbnormal extends HttpServlet {
         System.out.println("cOMMENT : " + comment);
          HttpClient httpClient = HttpClientBuilder.create().build(); //Use this instead 
         System.out.println("Print patch" + httpClient);
-        HttpPatch requestu = new HttpPatch("http://watjai.me:3000/watjaimeasure/" + idmea);
+        HttpPatch requestu = new HttpPatch("http://139.59.98.254:3000/watjaimeasure/" + idmea);
         System.out.println("Print patch" + requestu);
 
         try {

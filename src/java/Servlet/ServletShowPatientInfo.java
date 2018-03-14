@@ -44,10 +44,11 @@ public class ServletShowPatientInfo extends HttpServlet {
          try {
            System.out.println("idPAt:"+idPat);
              dhList = DataHealth.doReadListData(idPat);
-             dhListMea = DataHealth.ReciveURL("http://watjai.me:3000/patients/",idPat,"/watjaimeasure/latest");
-             dhListMeaUnread = DataHealth.ReciveURL("http://watjai.me:3000/watjaimeasure/showabnormal/",idPat,"");
+             dhListMea = DataHealth.ReciveURL("http://139.59.98.254:3000/patients/",idPat,"/watjaimeasure/latest");
+             dhListMeaUnread = DataHealth.ReciveURL("http://139.59.98.254:3000/watjaimeasure/showabnormal/",idPat,"");
              p = p.showInfo(idPat);
         System.out.println("showList"+dhList);
+        System.out.println("dhListMea "+dhListMea);
           
         } catch (Exception e) {
         }

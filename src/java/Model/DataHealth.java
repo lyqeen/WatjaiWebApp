@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
+
+
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -104,7 +101,7 @@ public class DataHealth {
         DataHealth dh = null;
 
         try {
-            URL oracle = new URL("http://watjai.me:3000/patients/"+patId+"/watjainormal/latest"); // URL to Parse
+            URL oracle = new URL("http://139.59.98.254:3000/patients/"+patId+"/watjainormal/latest"); // URL to Parse
             URLConnection yc = oracle.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream(), "UTF-8"));
 
@@ -143,7 +140,7 @@ public class DataHealth {
         DataHealth dh = new DataHealth();
         JSONParser parser = new JSONParser();
         try {
-            URL oracle = new URL("http://watjai.me:3000/watjainormal/" + idmea); // URL to Parse
+            URL oracle = new URL("http://139.59.98.254:3000/watjainormal/" + idmea); // URL to Parse
             URLConnection yc = oracle.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
 
@@ -154,16 +151,16 @@ public class DataHealth {
                 // Loop through each item
                 for (Object o : a) {
                     JSONObject tutorials = (JSONObject) o;
-                    String meaId = (String) tutorials.get("measureId");
+                    String meaId = (String) tutorials.get("measuringId");
                     dh.setMeasureId(meaId);
 
-                    String meaTime = (String) tutorials.get("measureTime");
+                    String meaTime = (String) tutorials.get("measuringTime");
                     String newdt = dh.subStringDate(meaTime);
                     dh.setMeasureTime(newdt);
                     
                     ArrayList<Float> list = new ArrayList<Float>();
                     list.toArray();
-                    JSONArray jsonArray = (JSONArray) tutorials.get("measureData");
+                    JSONArray jsonArray = (JSONArray) tutorials.get("measuringData");
                     if (jsonArray != null) {
                         int len = jsonArray.size();
                         for (int i = 0; i < len; i++) {
@@ -188,12 +185,11 @@ public class DataHealth {
     static public void Addcomment(String idmea, String comment) throws IOException {
         HttpClient httpClient = HttpClientBuilder.create().build(); //Use this instead 
         
-        HttpPost request = new HttpPost("http://watjai.me:3000/watjaimeasure/" + idmea);
+        HttpPost request = new HttpPost("http://139.59.98.254:3000/watjaimeasure/" + idmea);
        
 
         StringEntity params
-                = new StringEntity(("{\"abnormalStatus\":\"true\","
-                        + "\"readStatus\":\"unread\","
+                = new StringEntity(("{\"measuringTime\":\"true\","
                         + "\"comment\":\"" + comment + "\"}"),
                         "UTF-8");
 
@@ -252,7 +248,7 @@ public class DataHealth {
                     dh.setMeasureId(meaId);
                   
 
-                    String meaTime = (String) tut.get("alertTime");
+                    String meaTime = (String) tut.get("measuringTime");
                     String newdt = dh.subStringDate(meaTime);
                     dh.setMeasureTime(newdt);
 
@@ -273,7 +269,7 @@ public class DataHealth {
         DataHealth dh = new DataHealth();
         JSONParser parser = new JSONParser();
         try {
-            URL oracle = new URL("http://watjai.me:3000/watjaimeasure/"+idmea); // URL to Parse
+            URL oracle = new URL("http://139.59.98.254:3000/watjaimeasure/"+idmea); // URL to Parse
             URLConnection yc = oracle.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
 
@@ -288,7 +284,7 @@ public class DataHealth {
                     dh.setMeasureId(meaId);
                    
 
-                    String meaTime = (String) tutorials.get("alertTime");
+                    String meaTime = (String) tutorials.get("measuringTime");
                     String newdt = dh.subStringDate(meaTime);
                     dh.setMeasureTime(newdt);
 
@@ -328,7 +324,10 @@ public class DataHealth {
         //d.subStringDate("2017-09-24T19:37:49.453Z");
         //changeMeaStatus("ME17103100003");
         //Addcomment("ME17103100002", "ทดลอง");
-        DataHealth.doReadListData("PA1709001");
+        
+        String newUrl ="http://139.59.98.254:3000/watjaimeasure/showabnormal/PA1803001";
+        System.out.println(DataHealth.doReadInfoMeasureData("PA1803001",newUrl));
+        
         // showDataAbnormal("ME17103100007");
        // ReciveURL("http://watjai.me:3000/watjaimeasure/showabnormal/", "PA1709001", "");
 

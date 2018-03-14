@@ -61,7 +61,7 @@ class CalECGGraph {
 
         try {
 
-            URL oracle = new URL("http://watjai.me:3000/patients/PA1709001/watjainormal/latest"); // URL to Parse
+            URL oracle = new URL("http://139.59.98.254:3000/patients/PA1709001/watjainormal/latest"); // URL to Parse
             URLConnection yc = oracle.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
             String inputLine;
