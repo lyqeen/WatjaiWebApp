@@ -46,7 +46,7 @@
                     <div class="pull-right logout">
                         <span style="color: #00939a;font-size: 12pt;">
                            
-                        fff
+                       นพ.รักชาติ ยิ่งชีพ
                         
                         </span>
                         <a href="Login.jsp" style="color: white"> ลงชื่อออก </a>

@@ -40,7 +40,7 @@
                     </a>
                     <div class="pull-right logout">
                         <span style="color: #00939a;font-size: 12pt;">
-                            นายแพทย์สวัสดี ทวีสุจ</span>
+                            นพ.รักชาติ ยิ่งชีพ</span>
                         <a href="#"> ลงชื่ออก </a>
                     </div>
 
