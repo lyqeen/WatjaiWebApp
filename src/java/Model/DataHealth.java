@@ -120,10 +120,10 @@ public class DataHealth {
                     JSONObject tut = (JSONObject) o;
                     dh = new DataHealth();
 
-                    String meaId = (String) tut.get("measureId");
+                    String meaId = (String) tut.get("measuringId");
                     dh.setMeasureId(meaId);
 
-                    String meaTime = (String) tut.get("measureTime");
+                    String meaTime = (String) tut.get("measuringTime");
                     String newdt = dh.subStringDate(meaTime);
                     dh.setMeasureTime(newdt);
                    
@@ -170,8 +170,6 @@ public class DataHealth {
                         for (int i = 0; i < len; i++) {
                             //list.add((Double) jsonArray.get(i));
                             list.add((Float) Float.parseFloat(jsonArray.get(i) + ""));
-
-                           
                         }
                     }
                     dh.setMeasureData(list);
@@ -217,7 +215,7 @@ public class DataHealth {
 
     static public List<DataHealth> ReciveURL(String text1, String patID, String text2) {
         String newURL;
-        newURL = text1 + patID + text2;
+        newURL = text1+patID+text2;
         //System.out.println("newURL : " + newURL);
         List<DataHealth> dataHealth = null;
         dataHealth = doReadInfoMeasureData(patID, newURL);

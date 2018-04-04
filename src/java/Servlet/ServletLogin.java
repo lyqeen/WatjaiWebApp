@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -39,13 +40,14 @@ public class ServletLogin extends HttpServlet {
         String target = "/Login.jsp";
         String message = "";
         Doctor dr = null;
-        boolean r = false;
+        boolean check = false;
         
         if (username != null && password != null) {
-            r = Doctor.validate(username, password);
-            if (r) {
+             check = Doctor.validate(username, password);
+            if (check) {
                 dr = dr.showDoctorDetail(username);
                 request.getSession().setAttribute("doctorObj",dr);
+                
                 target = "/ShowAllPatient";
             } else {
                 message = "Username or Password not match";
@@ -54,7 +56,7 @@ public class ServletLogin extends HttpServlet {
             message = "Please insert username and password";
         }  
 
-        System.out.println("boolean : " + r);
+        System.out.println("boolean : " + check);
         
         request.setAttribute("message", message);
         getServletContext().getRequestDispatcher(target).forward(request, response);
